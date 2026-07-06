@@ -11,67 +11,61 @@
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --bg:#08090d; --bg-2:#0e1016; --surface:rgba(255,255,255,.035); --surface-2:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.14);
+      --bg:#08090d; --surface:rgba(255,255,255,.035); --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.14);
       --ink:#f4f4f6; --body:#a5abba; --dim:#6b7280;
-      --violet:#8b5cf6; --violet-2:#a78bfa; --violet-ink:#c4b5fd;
-      --green:#34d399; --red:#f87171;
-      --r-lg:20px; --r:14px;
-      --glow:0 0 0 1px rgba(139,92,246,.35), 0 18px 50px -12px rgba(139,92,246,.5);
+      --violet:#8b5cf6; --violet-2:#a78bfa; --violet-ink:#c4b5fd; --green:#34d399; --red:#f87171;
+      --r-lg:20px; --r:14px; --glow:0 0 0 1px rgba(139,92,246,.35), 0 18px 50px -12px rgba(139,92,246,.5);
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:'Assistant','Segoe UI',Arial,sans-serif;color:var(--body);background:var(--bg);
-         line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body{margin:0;font-family:'Assistant','Segoe UI',Arial,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-      background:
-        radial-gradient(60% 40% at 78% 8%, rgba(139,92,246,.16), transparent 70%),
-        radial-gradient(50% 40% at 12% 95%, rgba(124,58,237,.12), transparent 70%);}
+      background:radial-gradient(60% 40% at 78% 6%,rgba(139,92,246,.16),transparent 70%),radial-gradient(50% 40% at 10% 92%,rgba(124,58,237,.12),transparent 70%)}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
     h1,h2,h3{color:var(--ink);margin:0}
     .wrap{max-width:1140px;margin:0 auto;padding:0 5vw;position:relative;z-index:1}
     .mono{font-family:'JetBrains Mono',monospace}
-    .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:1px;color:var(--violet-ink);text-transform:uppercase}
+    .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:1px;color:var(--violet-ink);text-transform:uppercase;display:block;margin-bottom:12px}
     .h2{font-size:clamp(1.8rem,3.8vw,2.6rem);font-weight:800;letter-spacing:-1px;line-height:1.14;color:var(--ink)}
     .lead{font-size:1.13rem;color:var(--body);max-width:620px}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;border:none;cursor:pointer;
-         border-radius:12px;transition:transform .06s ease,background .2s ease,box-shadow .25s ease,border-color .2s}
-    .btn-primary{background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;font-size:1.02rem;padding:13px 24px;
-      box-shadow:0 10px 30px -8px rgba(139,92,246,.7)}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;border:none;cursor:pointer;border-radius:12px;transition:transform .06s ease,background .2s,box-shadow .25s,border-color .2s}
+    .btn-primary{background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;font-size:1.02rem;padding:13px 24px;box-shadow:0 10px 30px -8px rgba(139,92,246,.7)}
     .btn-primary:hover{box-shadow:0 14px 40px -8px rgba(139,92,246,.9);transform:translateY(-1px)}
-    .btn-primary:active{transform:translateY(0)}
     .btn-ghost{background:rgba(255,255,255,.04);color:var(--ink);border:1px solid var(--line-2);padding:13px 22px;font-size:1.02rem}
     .btn-ghost:hover{background:rgba(255,255,255,.08)}
-    .tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.5px;
-      color:var(--violet-ink);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.28);border-radius:999px;padding:6px 13px}
-    .live{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+    .tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.5px;color:var(--violet-ink);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.28);border-radius:999px;padding:6px 13px}
+    .live{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 7px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
 
+    /* scroll reveal */
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
     /* nav */
-    .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;
-      background:rgba(8,9,13,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(8,9,13,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
     .brand{font-weight:800;font-size:1.5rem;color:var(--ink);letter-spacing:-.5px}
     .brand b{color:var(--violet-2)}
     .nav-left{display:flex;align-items:center;gap:16px}
     .nav .btn-primary{font-size:.92rem;padding:9px 18px}
 
     /* hero */
-    .hero{padding:72px 0 60px}
+    .hero{padding:72px 0 64px}
     .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
     .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);font-weight:800;letter-spacing:-1.5px;line-height:1.08;color:var(--ink);margin:20px 0 18px}
     .hero h1 .turn{background:linear-gradient(90deg,var(--violet-2),#d8b4fe);-webkit-background-clip:text;background-clip:text;color:transparent}
     .hero .sub{font-size:clamp(1.06rem,2vw,1.28rem);color:var(--body);margin-bottom:26px}
     .hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .stats{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap}
-    .stat .n{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--ink)}
+    .stats{display:flex;gap:26px;margin-top:28px;flex-wrap:wrap}
+    .stat .n{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--ink)}
     .stat .l{font-size:.85rem;color:var(--dim)}
 
     /* dashboard mockup */
     .mock{position:relative}
     .mock::before{content:"";position:absolute;inset:-40px;background:radial-gradient(closest-side,rgba(139,92,246,.35),transparent 72%);filter:blur(20px);z-index:0}
-    .win{position:relative;z-index:1;background:linear-gradient(180deg,#0f1118,#0b0d12);border:1px solid var(--line-2);border-radius:var(--r-lg);
-      box-shadow:0 30px 70px -20px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden}
+    .win{position:relative;z-index:1;background:linear-gradient(180deg,#0f1118,#0b0d12);border:1px solid var(--line-2);border-radius:var(--r-lg);box-shadow:0 30px 70px -20px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden}
     .win-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
     .win-bar i{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.14)}
     .win-bar .t{margin-inline-start:auto;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--dim)}
@@ -82,68 +76,69 @@
     .m-label{font-weight:700;color:var(--ink);font-size:.98rem}
     .m-sub{font-size:.8rem;color:var(--dim);font-family:'JetBrains Mono',monospace}
     .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:12px;overflow:hidden}
-    .bar>i{display:block;height:100%;width:90%;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--violet-2));box-shadow:0 0 12px rgba(139,92,246,.7)}
-    .lead-row{display:flex;align-items:center;gap:11px;padding:9px 0;border-top:1px solid var(--line)}
+    .bar>i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--violet-2));box-shadow:0 0 12px rgba(139,92,246,.7);transition:width 1.3s cubic-bezier(.2,.7,.2,1) .3s}
+    .lead-row{display:flex;align-items:center;gap:11px;padding:9px 0;border-top:1px solid var(--line);opacity:0;transform:translateX(12px);transition:opacity .5s,transform .5s}
+    .lead-row.in{opacity:1;transform:none}
     .lead-row:first-of-type{border-top:none}
     .avatar{width:34px;height:34px;border-radius:50%;background:rgba(139,92,246,.18);color:var(--violet-2);display:grid;place-items:center;font-weight:800;font-size:.9rem;flex:none;border:1px solid rgba(139,92,246,.3)}
     .lead-name{font-weight:700;color:var(--ink);font-size:.92rem;line-height:1.2}
     .lead-meta{font-size:.78rem;color:var(--dim)}
-    .score{margin-inline-start:auto;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.82rem;color:var(--green);
-      background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:999px;padding:3px 10px;flex:none}
-    .float{position:absolute;z-index:2;background:rgba(16,18,26,.9);backdrop-filter:blur(8px);border:1px solid var(--line-2);border-radius:14px;
-      box-shadow:0 14px 30px -10px rgba(0,0,0,.7);padding:11px 14px;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);font-size:.88rem}
+    .score{margin-inline-start:auto;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.82rem;color:var(--green);background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:999px;padding:3px 10px;flex:none}
+    .float{position:absolute;z-index:2;background:rgba(16,18,26,.9);backdrop-filter:blur(8px);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 14px 30px -10px rgba(0,0,0,.7);padding:11px 14px;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);font-size:.88rem;animation:floaty 5s ease-in-out infinite}
     .float .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
     .float.a{top:-16px;inset-inline-start:-20px}
-    .float.b{bottom:-18px;inset-inline-end:-14px}
+    .float.b{bottom:-18px;inset-inline-end:-14px;animation-delay:1.2s}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 
-    section{padding:60px 0;position:relative;z-index:1}
+    section{padding:64px 0;position:relative;z-index:1}
     .center{text-align:center}
     .center .lead{margin-inline:auto}
     .sec-head{max-width:680px;margin:0 auto 40px}
-    .sec-head .eyebrow{display:block;margin-bottom:12px}
 
-    /* pain */
-    .pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:900px;margin:0 auto}
-    .pain-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
-    .pain-item .ic{width:38px;height:38px;border-radius:10px;background:rgba(248,113,113,.12);color:var(--red);display:grid;place-items:center;margin-bottom:12px;border:1px solid rgba(248,113,113,.25)}
-    .pain-item b{color:var(--ink);display:block;font-size:1.05rem;margin-bottom:3px}
-    .pain-kicker{text-align:center;max-width:720px;margin:30px auto 0;font-size:1.12rem;color:var(--ink);font-weight:700}
-    .pain-kicker span{color:var(--violet-2)}
+    /* split media sections */
+    .media-split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+    .shot{border-radius:var(--r-lg);border:1px solid var(--line-2);overflow:hidden;box-shadow:0 30px 70px -24px rgba(0,0,0,.85)}
+    .shot img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+    .shot.violet{box-shadow:0 30px 70px -24px rgba(139,92,246,.45)}
+
+    /* pain list */
+    .pain-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px}
+    .pain-list li{display:flex;gap:12px;align-items:flex-start}
+    .pain-list .ic{width:34px;height:34px;border-radius:9px;background:rgba(248,113,113,.12);color:var(--red);display:grid;place-items:center;flex:none;border:1px solid rgba(248,113,113,.25)}
+    .pain-list b{color:var(--ink);display:block}
 
     /* features */
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
     .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;transition:border-color .2s,transform .2s,box-shadow .2s}
-    .card:hover{border-color:rgba(139,92,246,.4);transform:translateY(-3px);box-shadow:0 20px 40px -20px rgba(139,92,246,.4)}
+    .card:hover{border-color:rgba(139,92,246,.4);transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(139,92,246,.4)}
     .card .ic{width:46px;height:46px;border-radius:12px;background:rgba(139,92,246,.14);color:var(--violet-2);display:grid;place-items:center;margin-bottom:16px;border:1px solid rgba(139,92,246,.28)}
     .card h3{font-size:1.2rem;margin-bottom:8px}
-    .promise{margin:44px auto 0;max-width:820px;text-align:center;font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;color:var(--ink);letter-spacing:-.5px}
-    .promise b{background:linear-gradient(90deg,var(--violet-2),#d8b4fe);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* relief / payoff */
+    .promise-h{font-size:clamp(2rem,4.4vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;color:var(--ink)}
+    .promise-h b{background:linear-gradient(90deg,var(--violet-2),#d8b4fe);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .quote{margin-top:26px;background:linear-gradient(180deg,rgba(139,92,246,.08),var(--surface));border:1px solid rgba(139,92,246,.25);border-radius:var(--r-lg);padding:22px 24px;display:flex;gap:14px;align-items:flex-start}
+    .quote .qa{width:48px;height:48px;border-radius:50%;background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.2rem;flex:none}
+    .quote p{margin:0;font-size:1.05rem;color:var(--ink)}
+    .quote .who{color:var(--violet-ink);font-family:'JetBrains Mono',monospace;font-size:.82rem;margin-top:6px}
 
     /* steps */
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
     .step{position:relative;padding:28px 22px 22px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface)}
-    .step::before{counter-increment:s;content:"0" counter(s);position:absolute;top:-15px;inset-inline-start:22px;font-family:'JetBrains Mono',monospace;
-      padding:5px 11px;border-radius:9px;background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 8px 20px -6px rgba(139,92,246,.7)}
+    .step::before{counter-increment:s;content:"0" counter(s);position:absolute;top:-15px;inset-inline-start:22px;font-family:'JetBrains Mono',monospace;padding:5px 11px;border-radius:9px;background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 8px 20px -6px rgba(139,92,246,.7)}
     .step h3{font-size:1.12rem;margin:10px 0 6px}
 
-    /* safe + proof */
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:0 auto 24px}
+    /* safe */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:0 auto}
     .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px}
     .panel .ic{width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,.14);color:var(--violet-2);display:grid;place-items:center;margin-bottom:14px;border:1px solid rgba(139,92,246,.28)}
     .panel h3{font-size:1.18rem;margin-bottom:8px}
-    .quote{max-width:820px;margin:0 auto;background:linear-gradient(180deg,rgba(139,92,246,.08),var(--surface));border:1px solid rgba(139,92,246,.25);
-      border-radius:var(--r-lg);padding:26px 28px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 20px 50px -24px rgba(139,92,246,.5)}
-    .quote .qa{width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,var(--violet-2),var(--violet));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.3rem;flex:none}
-    .quote p{margin:0;font-size:1.12rem;color:var(--ink)}
-    .quote .who{color:var(--violet-ink);font-family:'JetBrains Mono',monospace;font-size:.85rem;margin-top:8px}
 
-    /* offer + form */
-    .form-card{position:relative;max-width:500px;margin:0 auto;background:linear-gradient(180deg,#0f1118,#0b0d12);border:1px solid var(--line-2);
-      border-radius:var(--r-lg);padding:36px 32px;text-align:center;box-shadow:var(--glow)}
+    /* offer */
+    .form-card{position:relative;max-width:500px;margin:0 auto;background:linear-gradient(180deg,#0f1118,#0b0d12);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:36px 32px;text-align:center;box-shadow:var(--glow)}
     .form-card .tag{margin-bottom:16px}
     form{display:flex;flex-direction:column;gap:12px;margin-top:22px}
-    input{font-family:inherit;font-size:1.05rem;padding:14px 16px;border:1px solid var(--line-2);border-radius:12px;text-align:right;
-      outline:none;background:rgba(255,255,255,.04);color:var(--ink);transition:border-color .15s,box-shadow .15s}
+    input{font-family:inherit;font-size:1.05rem;padding:14px 16px;border:1px solid var(--line-2);border-radius:12px;text-align:right;outline:none;background:rgba(255,255,255,.04);color:var(--ink);transition:border-color .15s,box-shadow .15s}
     input::placeholder{color:var(--dim)}
     input:focus{border-color:var(--violet);box-shadow:0 0 0 4px rgba(139,92,246,.18)}
     form .btn-primary{justify-content:center;font-size:1.1rem;padding:15px}
@@ -156,10 +151,15 @@
       .hero .wrap{grid-template-columns:1fr;gap:44px}
       .mock{max-width:440px;margin:0 auto}
       .cards,.steps{grid-template-columns:1fr}
-      .pain-grid,.split{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+      .media-split{grid-template-columns:1fr;gap:28px}
+      .media-split .rev-order{order:-1}
       .nav-left .tag{display:none}
     }
-    @media(prefers-reduced-motion:reduce){.live{animation:none}*{transition:none!important}}
+    @media(prefers-reduced-motion:reduce){
+      .reveal,.lead-row{opacity:1!important;transform:none!important;transition:none!important}
+      .bar>i{transition:none!important}.live,.float{animation:none!important}
+    }
   </style>
 </head>
 <body>
@@ -175,7 +175,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <div class="hero-text">
+      <div class="hero-text reveal in">
         <span class="eyebrow">// מערכת שיווק למתווכי נדל"ן</span>
         <h1>בזמן שאתה מדביק פוסטים ל-30 קבוצות,<br /><span class="turn">מישהו אחר סוגר את העסקה.</span></h1>
         <p class="sub">כל יום שורף ממך שעות על שיווק ידני — ועדיין חצי מהלידים נופלים בין הכיסאות. PostPro עושה את זה במקומך: מפרסמת, מוצאת לך לידים, ומרכזת הכל למקום אחד. אתה חוזר לסגור עסקאות.</p>
@@ -184,32 +184,21 @@
           <a class="btn btn-ghost" href="#how">איך זה עובד</a>
         </div>
         <div class="stats">
-          <div class="stat"><div class="n">30+</div><div class="l">קבוצות בפרסום אחד</div></div>
-          <div class="stat"><div class="n">10</div><div class="l">גרסאות לכל מסר</div></div>
+          <div class="stat"><div class="n"><span data-count="30">0</span>+</div><div class="l">קבוצות בפרסום אחד</div></div>
+          <div class="stat"><div class="n"><span data-count="10">0</span></div><div class="l">גרסאות לכל מסר</div></div>
           <div class="stat"><div class="n">24/7</div><div class="l">רץ ברקע במקומך</div></div>
         </div>
       </div>
 
-      <div class="mock">
-        <div class="float a">
-          <span class="ic" style="background:rgba(139,92,246,.18);color:var(--violet-2);border:1px solid rgba(139,92,246,.3)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          </span>
-          18 לידים חדשים השבוע
-        </div>
-        <div class="float b">
-          <span class="ic" style="background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          </span>
-          פורסם ל-30 קבוצות
-        </div>
-
+      <div class="mock reveal in d2">
+        <div class="float a"><span class="ic" style="background:rgba(139,92,246,.18);color:var(--violet-2);border:1px solid rgba(139,92,246,.3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>18 לידים חדשים השבוע</div>
+        <div class="float b"><span class="ic" style="background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>פורסם ל-30 קבוצות</div>
         <div class="win">
           <div class="win-bar"><i></i><i></i><i></i><span class="t">postpro.app</span></div>
           <div class="win-body">
             <div class="m-card">
               <div class="m-row"><span class="m-label">פרסום אוטומטי</span><span class="m-sub">09:14</span></div>
-              <div class="bar"><i></i></div>
+              <div class="bar"><i data-fill="90"></i></div>
               <div class="m-sub" style="margin-top:9px">27 / 30 קבוצות · 3 וריאציות</div>
             </div>
             <div class="m-card">
@@ -224,67 +213,78 @@
     </div>
   </section>
 
-  <!-- PAIN -->
+  <!-- PAIN (with image) -->
   <section>
-    <div class="wrap">
-      <div class="sec-head center">
+    <div class="wrap media-split">
+      <div class="shot reveal"><img src="img/pain.jpg" loading="lazy" alt="מתווך נדל״ן עייף בלילה מול מסכים של קבוצות פייסבוק" /></div>
+      <div class="pain-content reveal d1">
         <span class="eyebrow">// הכאב</span>
         <h2 class="h2">אתה מכיר את זה טוב מדי</h2>
-        <p class="lead">שיווק בקבוצות עובד — אבל הוא עבודה שחורה שגונבת לך את הזמן היקר.</p>
+        <p class="lead" style="margin-top:12px">שיווק בקבוצות עובד — אבל הוא עבודה שחורה שגונבת לך את הזמן היקר.</p>
+        <ul class="pain-list">
+          <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>שעה בכל פרסום</b>מנסח, מעתיק, מדביק ל-30 קבוצות — שוב ושוב, כל יום.</span></li>
+          <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3l-8-14a2 2 0 0 0-3.4 0z"/></svg></span><span><b>פחד להיחסם</b>אותו טקסט בכל מקום = פייסבוק מוריד חשיפה, אז אתה מפרסם פחות ממה שכדאי.</span></li>
+          <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span><b>מחפש מוכרים בעיניים</b>גולל שעות בקבוצות, ורוב מה שאתה מוצא זה מתווכים אחרים.</span></li>
+          <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7l9-4 9 4"/></svg></span><span><b>לידים נופלים</b>מפוזרים בין וואטסאפ, מיילים ופתקים — וחלק פשוט נשכח.</span></li>
+        </ul>
       </div>
-      <div class="pain-grid">
-        <div class="pain-item"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>שעה בכל פרסום</b>מנסח, מעתיק, מדביק ל-30 קבוצות — שוב ושוב, כל יום.</div>
-        <div class="pain-item"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3l-8-14a2 2 0 0 0-3.4 0z"/></svg></span><b>פחד להיחסם</b>אותו טקסט בכל מקום = פייסבוק מוריד חשיפה, אז אתה מפרסם פחות ממה שכדאי.</div>
-        <div class="pain-item"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><b>מחפש מוכרים בעיניים</b>גולל שעות בקבוצות, ורוב מה שאתה מוצא זה מתווכים אחרים.</div>
-        <div class="pain-item"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7l9-4 9 4"/></svg></span><b>לידים נופלים</b>מפוזרים בין וואטסאפ, מיילים ופתקים — וחלק פשוט נשכח.</div>
-      </div>
-      <p class="pain-kicker">התוצאה: פחות בלעדיות, פחות זמן לפגישות, ופחות עסקאות — <span>לא כי אתה לא טוב, אלא כי אין לך זמן.</span></p>
     </div>
   </section>
 
   <!-- FEATURES -->
   <section>
     <div class="wrap">
-      <div class="sec-head center">
+      <div class="sec-head center reveal">
         <span class="eyebrow">// הפתרון</span>
         <h2 class="h2">PostPro עושה את זה במקומך</h2>
-        <p class="lead">אתה מזין נכס או מסר פעם אחת. המערכת עובדת ברקע — גם כשאתה בפגישה או ישן.</p>
+        <p class="lead" style="margin-top:12px">אתה מזין נכס או מסר פעם אחת. המערכת עובדת ברקע — גם כשאתה בפגישה או ישן.</p>
       </div>
       <div class="cards">
-        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3zM3 11v3M8 12.5V19l4 1"/></svg></span><h3>פרסום אוטומטי לקבוצות</h3><p>בוחר קבוצות פעם אחת, והמערכת מפרסמת בתזמון ובקצב בטוח — עם עשר גרסאות שונות לכל מסר, כדי שהחשיפה תישאר גבוהה ולא תיראה כמו ספאם.</p></div>
-        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><h3>מוצאת לך לידים</h3><p>סורקת את הקבוצות, מזהה אנשים פרטיים שמוכרים או מחפשים דירה, מסננת מתווכים אחרים אוטומטית, ומדרגת למי הכי כדאי להתקשר — עם פתיח מוכן לשיחה.</p></div>
-        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><h3>CRM אחד לכל הלידים</h3><p>כל ליד — מהסריקה, מהתגובות על הפוסטים שלך, ומהאתר — נכנס למקום אחד. חיוג בלחיצה, סטטוסים ברורים, ושום ליד לא נעלם.</p></div>
+        <div class="card reveal"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3zM3 11v3M8 12.5V19l4 1"/></svg></span><h3>פרסום אוטומטי לקבוצות</h3><p>בוחר קבוצות פעם אחת, והמערכת מפרסמת בתזמון ובקצב בטוח — עם עשר גרסאות שונות לכל מסר, כדי שהחשיפה תישאר גבוהה ולא תיראה כמו ספאם.</p></div>
+        <div class="card reveal d1"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><h3>מוצאת לך לידים</h3><p>סורקת את הקבוצות, מזהה אנשים פרטיים שמוכרים או מחפשים דירה, מסננת מתווכים אחרים אוטומטית, ומדרגת למי הכי כדאי להתקשר — עם פתיח מוכן לשיחה.</p></div>
+        <div class="card reveal d2"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><h3>CRM אחד לכל הלידים</h3><p>כל ליד — מהסריקה, מהתגובות על הפוסטים שלך, ומהאתר — נכנס למקום אחד. חיוג בלחיצה, סטטוסים ברורים, ושום ליד לא נעלם.</p></div>
       </div>
-      <p class="promise">אתה סוגר עסקאות. <b>אנחנו נדאג לשיווק.</b></p>
+    </div>
+  </section>
+
+  <!-- RELIEF / PAYOFF (with image) -->
+  <section>
+    <div class="wrap media-split">
+      <div class="reveal">
+        <span class="eyebrow">// התוצאה</span>
+        <h2 class="promise-h">אתה סוגר עסקאות.<br /><b>אנחנו נדאג לשיווק.</b></h2>
+        <p class="lead" style="margin-top:14px">הזמן שבזבזת על העתק-הדבק חוזר אליך — לפגישות, לסגירות, וללקוחות מרוצים.</p>
+        <div class="quote">
+          <span class="qa">מ</span>
+          <div>
+            <p>מרדכי ניסנוב, מתווך RE/MAX, מריץ את PostPro על העסק שלו. זו לא הדגמה — זו המערכת שמשווקת אותו בפועל, יום-יום.</p>
+            <div class="who">מרדכי ניסנוב · RE/MAX</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot violet reveal d1 rev-order"><img src="img/relief.jpg" loading="lazy" alt="מתווך מוסר מפתחות לזוג מאושר בדירה חדשה ומוארת" /></div>
     </div>
   </section>
 
   <!-- HOW -->
   <section id="how">
     <div class="wrap">
-      <div class="sec-head center"><span class="eyebrow">// איך זה עובד</span><h2 class="h2">שלושה צעדים, וזהו</h2></div>
+      <div class="sec-head center reveal"><span class="eyebrow">// איך זה עובד</span><h2 class="h2">שלושה צעדים, וזהו</h2></div>
       <div class="steps">
-        <div class="step"><h3>מזין פעם אחת</h3><p>פרטי נכס או מסר שיווקי, ובוחר לאילו קבוצות ובאיזה קצב. פעם אחת.</p></div>
-        <div class="step"><h3>המערכת עובדת ברקע</h3><p>מחוללת וריאציות, מפרסמת בתזמון, סורקת לידים ועוקבת אחרי תגובות — אוטומטית.</p></div>
-        <div class="step"><h3>מקבל לידים מוכנים</h3><p>רשימה חמה ומדורגת, עם טלפון ופתיח לשיחה — מוכנה להתקשרות.</p></div>
+        <div class="step reveal"><h3>מזין פעם אחת</h3><p>פרטי נכס או מסר שיווקי, ובוחר לאילו קבוצות ובאיזה קצב. פעם אחת.</p></div>
+        <div class="step reveal d1"><h3>המערכת עובדת ברקע</h3><p>מחוללת וריאציות, מפרסמת בתזמון, סורקת לידים ועוקבת אחרי תגובות — אוטומטית.</p></div>
+        <div class="step reveal d2"><h3>מקבל לידים מוכנים</h3><p>רשימה חמה ומדורגת, עם טלפון ופתיח לשיחה — מוכנה להתקשרות.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- SAFE + PROOF -->
+  <!-- SAFE -->
   <section>
     <div class="wrap">
-      <div class="sec-head center"><span class="eyebrow">// בטיחות</span><h2 class="h2">בטוח — כי זה מהחשבון שלך, לא מבוט</h2></div>
+      <div class="sec-head center reveal"><span class="eyebrow">// בטיחות</span><h2 class="h2">בטוח — כי זה מהחשבון שלך, לא מבוט</h2></div>
       <div class="split">
-        <div class="panel"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l1.8 1.8 3.2-3.6"/></svg></span><h3>הנוכחות שלך נשארת שלך</h3><p>הפרסום נעשה מהחשבון האמיתי שלך, מהמחשב שלך, מכתובת ה-IP שלך — בדיוק כאילו אתה פרסמת, רק אוטומטי. אין שרתי-בוט, אין פרוקסי, אין התחזות, אין פרופילים מזויפים.</p></div>
-        <div class="panel"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg></span><h3>בנוי לצמצם סיכון חסימה</h3><p>קצב בטוח, תקרה יומית, מרווח בין פרסומים לאותה קבוצה, ועשר גרסאות שונות לכל מסר — שכבות הגנה שקשה לזכור ולאכוף ידנית.</p></div>
-      </div>
-      <div class="quote">
-        <span class="qa">מ</span>
-        <div>
-          <p>מרדכי ניסנוב, מתווך RE/MAX, מריץ את PostPro על העסק שלו. זו לא הדגמה — זו המערכת שמשווקת אותו בפועל, יום-יום.</p>
-          <div class="who">מרדכי ניסנוב · RE/MAX</div>
-        </div>
+        <div class="panel reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l1.8 1.8 3.2-3.6"/></svg></span><h3>הנוכחות שלך נשארת שלך</h3><p>הפרסום נעשה מהחשבון האמיתי שלך, מהמחשב שלך, מכתובת ה-IP שלך — בדיוק כאילו אתה פרסמת, רק אוטומטי. אין שרתי-בוט, אין פרוקסי, אין התחזות, אין פרופילים מזויפים.</p></div>
+        <div class="panel reveal d1"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg></span><h3>בנוי לצמצם סיכון חסימה</h3><p>קצב בטוח, תקרה יומית, מרווח בין פרסומים לאותה קבוצה, ועשר גרסאות שונות לכל מסר — שכבות הגנה שקשה לזכור ולאכוף ידנית.</p></div>
       </div>
     </div>
   </section>
@@ -292,7 +292,7 @@
   <!-- OFFER -->
   <section id="lead">
     <div class="wrap">
-      <div class="form-card">
+      <div class="form-card reveal">
         <span class="tag"><span class="live"></span> חודש ראשון חינם · חבר מביא חבר = עוד חודש</span>
         <h2 class="h2" style="font-size:1.7rem">בוא נדבר — הדגמה קצרה</h2>
         <p class="lead" style="font-size:1.05rem;margin:8px auto 0">השאר פרטים ונחזור אליך היום. הדגמה קצרה, הקמה מלאה בשבילך, בלי התחייבות.</p>
@@ -314,9 +314,32 @@
   </footer>
 
   <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // scroll reveal
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+    // count-up hero stats
+    function countUp(el){
+      const target = +el.dataset.count; const dur = 1200; const t0 = performance.now();
+      function tick(t){ const p = Math.min((t - t0) / dur, 1); el.textContent = Math.round(p * target); if (p < 1) requestAnimationFrame(tick); }
+      requestAnimationFrame(tick);
+    }
+    // animate dashboard bar + lead rows + counters shortly after load
+    window.addEventListener('load', () => {
+      const bar = document.querySelector('.bar > i');
+      if (bar) bar.style.width = (reduce ? bar.dataset.fill : bar.dataset.fill) + '%';
+      const rows = document.querySelectorAll('.lead-row');
+      rows.forEach((r, i) => { if (reduce) { r.classList.add('in'); } else { setTimeout(() => r.classList.add('in'), 500 + i * 220); } });
+      document.querySelectorAll('.stat .n [data-count], .stat [data-count]').forEach(el => { reduce ? (el.textContent = el.dataset.count) : countUp(el); });
+    });
+
+    // WhatsApp lead capture — details land straight in Mordi's WhatsApp, no server.
     const WHATSAPP_NUMBER = '972526259846';
-    const form = document.getElementById('leadForm');
-    const err = document.getElementById('err');
+    const form = document.getElementById('leadForm'); const err = document.getElementById('err');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
@@ -326,8 +349,7 @@
       err.textContent = '';
       const lines = ['היי, ראיתי את PostPro ואני רוצה חודש ראשון חינם / הדגמה.', 'שם: ' + name, 'טלפון: ' + phone];
       if (area) lines.push('אזור: ' + area);
-      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
-      window.open(url, '_blank');
+      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
     });
   </script>
 </body>
